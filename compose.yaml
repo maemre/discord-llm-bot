@@ -1,0 +1,6 @@
+services:
+  corg:
+    build: .
+    image: corg
+    env_file: .env
+    restart: unless-stopped
