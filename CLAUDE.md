@@ -19,7 +19,7 @@ go test ./...                            # add -race when touching concurrency
 go test ./internal/bot -run TestName     # single test
 go vet ./... && gofmt -l .
 podman build -t grook .                   # docker works the same; this machine has podman
-podman compose up -d --build             # or docker compose; the same file is used on the cloud VM
+./run.sh                                 # podman compose up -d --build (needs podman-compose installed)
 docker buildx build --platform linux/amd64,linux/arm64 .   # multi-arch, for the Oracle arm64 VM
 ```
 
