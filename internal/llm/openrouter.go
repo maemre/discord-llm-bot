@@ -66,7 +66,7 @@ func (c *Client) Complete(ctx context.Context, msgs []Message) (string, error) {
 	}
 	req.Header.Set("Authorization", "Bearer "+c.APIKey)
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("X-Title", "corg")
+	req.Header.Set("X-Title", "grook")
 
 	resp, err := c.HTTPClient.Do(req)
 	if err != nil {

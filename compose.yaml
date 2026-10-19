@@ -1,6 +1,6 @@
 services:
-  corg:
+  grook:
     build: .
-    image: corg
+    image: grook
     env_file: .env
     restart: unless-stopped

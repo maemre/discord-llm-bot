@@ -1,4 +1,4 @@
-// Command corg runs the Discord bot.
+// Command grook runs the Discord bot.
 package main
 
 import (
