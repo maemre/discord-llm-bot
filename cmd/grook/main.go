@@ -40,6 +40,12 @@ func run() error {
 		discordgo.IntentsDirectMessages |
 		discordgo.IntentMessageContent
 
+	// Registered before Open so the first READY and its GUILD_CREATEs are seen.
+	guilds := bot.NewGuildTracker()
+	s.AddHandler(guilds.Ready)
+	s.AddHandler(guilds.Create)
+	s.AddHandler(guilds.Delete)
+
 	if err := s.Open(); err != nil {
 		return err
 	}
@@ -50,6 +56,7 @@ func run() error {
 
 	// The bot's own user ID is only known after Open, so the handler is added here.
 	b := bot.New(s, llm.New(cfg.OpenRouterAPIKey, cfg.OpenRouterModel), s.State.User.ID, bot.DefaultCooldown)
+	b.LogContent = cfg.LogContent
 	s.AddHandler(func(_ *discordgo.Session, m *discordgo.MessageCreate) {
 		b.HandleMessage(ctx, m.Message)
 	})

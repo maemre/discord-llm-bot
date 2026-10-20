@@ -3,7 +3,9 @@ package config
 
 import (
 	"errors"
+	"fmt"
 	"os"
+	"strconv"
 )
 
 const DefaultModel = "minimax/minimax-m3.1-flash:free"
@@ -12,6 +14,8 @@ type Config struct {
 	DiscordToken     string
 	OpenRouterAPIKey string
 	OpenRouterModel  string
+	// LogContent includes question and answer text in interaction logs.
+	LogContent bool
 }
 
 // Load reads the configuration from environment variables. Callers that want
@@ -27,6 +31,13 @@ func Load() (Config, error) {
 	}
 
 	var errs []error
+	if v := os.Getenv("LOG_CONTENT"); v != "" {
+		b, err := strconv.ParseBool(v)
+		if err != nil {
+			errs = append(errs, fmt.Errorf("LOG_CONTENT: %w", err))
+		}
+		cfg.LogContent = b
+	}
 	if cfg.DiscordToken == "" {
 		errs = append(errs, errors.New("DISCORD_TOKEN is not set"))
 	}

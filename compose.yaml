@@ -1,6 +1,8 @@
 services:
   grook:
-    build: .
+    build:
+      context: .
+      dockerfile: Containerfile
     image: grook
     env_file: .env
     restart: unless-stopped
